@@ -25,11 +25,11 @@ let F = (A ∩ B)' △ (A △ B)
 ```
 
 Available operations are:
-- A' - complement (universe set must be declared)
-- A ∪ B - union
-- A ∩ B - intersection
-- A \ B - difference
-- A △ B - symmetric difference
+- `A'` - complement (universe set must be declared)
+- `A ∪ B` - union
+- `A ∩ B` - intersection
+- `A \ B` - difference
+- `A △ B` - symmetric difference
 
 ### 3. Set universe value (useful for complements)
 ```
@@ -50,3 +50,22 @@ will output {3, 4, 5}
 print A
 print A △ B
 ```
+
+## How Parsing Works
+What will be implemented:
+- A lexer that converts the input string into tokens (identifiers, symbols like `∩`, `∪`, `\`, `△`, `'`, parentheses, and `∅`).
+- A top-down operator precedence parser that:
+  1. Parses primary expressions (ident, `∅`, or parenthesized sub-expressions),
+  2. Applies zero or more `'` (complement),
+  3. Applies binary operator in correct order
+
+The result is an AST with nodes (draft, may change later):
+- `Ident(String)`, `Empty`
+- `Unary::Complement(expr)`
+- `Binary::Union/Intersect/Diff/SymDiff(lhs, rhs)`
+
+## How Results Are Used
+An interpreter that can evaluate the AST using an environment mapping identifiers to concrete sets (for example, `HashSet<i32>`) will included. This will help to:
+- define and store sets (`let A = {1,2,3};`)
+- compute results of set expressions,
+- print results (`print A ∪ B;`)
