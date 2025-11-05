@@ -1,6 +1,6 @@
 # Set Parser
  Set Parser lets you declare, compare and do operations on sets. Useful for first-year CS students who only start Discrete Math to get a rough understanding of Set Theory.
- In this language, a set consists of integers that are separated by comma (not neccessarily true in real Set Theory!).
+ In this language, a set consists of integers that are separated by comma (not necessarily true in real Set Theory!).
  See [grammar](./parser/src/grammar.pest) for more details.
  You can:
 
@@ -65,7 +65,7 @@ The result is an AST with nodes (draft, may change later):
 - `Binary::Union/Intersect/Diff/SymDiff(lhs, rhs)`
 
 ## How Results Are Used
-An interpreter that can evaluate the AST using an environment mapping identifiers to concrete sets (for example, `HashSet<i32>`) will included. This will help to:
+An interpreter that can evaluate the AST using an environment mapping identifiers to concrete sets (for example, `HashSet<i32>`) will be included. This will help to:
 - define and store sets (`let A = {1,2,3};`)
 - compute results of set expressions,
 - print results (`print A ∪ B;`)
