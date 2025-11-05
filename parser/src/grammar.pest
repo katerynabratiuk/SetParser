@@ -1,0 +1,33 @@
+WHITESPACE = _{ " " | "\t" | "\r" | "\n" }
+COMMENT = _{ "//" ~ (!"\n" ~ ANY)* ~ ("\n" | EOI) }
+
+ident = @{ ASCII_ALPHA+ }
+int = @{ ASCII_DIGIT+ }
+empty = { "∅" }
+
+program = { SOI ~ stmt* ~ EOI }
+stmt = { decl | print_stmt }
+decl = { "let" ~ ident ~ "=" ~ expr ~ ";" }
+print_stmt = { "print" ~ expr ~ ";" }
+
+// Set operators
+complement = { "'" }
+union = { "∪" }
+intersection = { "∩" }
+difference = { "\\" }
+symmetric_difference = { "△" }
+
+// Expressions with precedence
+// '  >  ∩, \  >  ∪, △
+expr = { add }
+add = { mul ~ ( (union | symmetric_difference) ~ mul )* }
+mul = { postfix ~ ( (intersection | difference) ~ postfix )* }
+postfix = { primary ~ complement* }
+
+primary = { set | "(" ~ expr ~ ")" }
+
+// Set
+set = { ident | empty | set_literal | range }
+
+set_literal = { "{" ~ (int ~ ("," ~ int)*)? ~ "}" }
+range = { "{" ~ int ~ ".." ~ int ~ "}" } // {1..10}

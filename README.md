@@ -1,6 +1,7 @@
 # Set Parser
  Set Parser lets you declare, compare and do operations on sets. Useful for first-year CS students who only start Discrete Math to get a rough understanding of Set Theory.
  In this language, a set consists of integers that are separated by comma (not neccessarily true in real Set Theory!).
+ See [grammar](./parser/src/grammar.pest) for more details.
  You can:
 
 ### 1. Declare and define a set
