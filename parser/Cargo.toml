@@ -1,5 +1,5 @@
 [package]
-name = "SetParser"
+name = "set_parser"
 version = "0.1.0"
 edition = "2024"
 description = "A tiny DSL and parser for set algebra (∪, ∩, \\, △, '), built with pest. Parses programs with `let` and `print`, builds an AST-ready parse tree for evaluation/printing."
@@ -9,3 +9,4 @@ readme = "README.md"
 anyhow = "1.0.100"
 pest = "2.8.3"
 pest_derive = "2.8.3"
+thiserror = "2.0.17"
