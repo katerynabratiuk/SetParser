@@ -69,4 +69,21 @@ impl Env {
         })
     }
 
+    // TO DO : make cleaner
+    pub fn format_set(s: &Set) -> String {
+        let mut out = String::from("{");
+        let mut first = true;
+
+        for v in s {
+            if !first {
+                out.push_str(", ");
+            }
+            first = false;
+            out.push_str(&v.to_string());
+        }
+
+        out.push('}');
+        out
+    }
+
 }
