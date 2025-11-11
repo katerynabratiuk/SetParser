@@ -7,6 +7,8 @@ readme = "README.md"
 
 [dependencies]
 anyhow = "1.0.100"
+clap = { version = "4.5", features = ["derive"] }
+figlet-rs = "0.1.5"
 pest = "2.8.3"
 pest_derive = "2.8.3"
 thiserror = "2.0.17"
