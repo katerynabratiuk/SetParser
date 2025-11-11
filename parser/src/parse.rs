@@ -96,7 +96,7 @@ fn parse_postfix(pair: Pair<Rule>) -> Result<Expr, ParseError> {
     let mut it = pair.into_inner();
     let primary = it.next().ok_or(ParseError::Missing(Rule::primary))?;
     let mut expr = parse_primary(primary)?;
-    for tail in it {
+    for _ in it {
         expr = Expr::Complement(Box::new(expr));
     }
     Ok(expr)
