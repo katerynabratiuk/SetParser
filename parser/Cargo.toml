@@ -4,6 +4,12 @@ version = "0.1.0"
 edition = "2024"
 description = "A tiny DSL and parser for set algebra (∪, ∩, \\, △, '), built with pest. Parses programs with `let` and `print`, builds an AST-ready parse tree for evaluation/printing."
 readme = "README.md"
+license = "MIT"
+repository = "https://github.com/katerynabratiuk/SetParser"
+homepage = "https://github.com/katerynabratiuk/SetParser"
+documentation = "https://docs.rs/set_parser"
+keywords = ["set","parser","dsl"]
+categories = ["parsing"]
 
 [dependencies]
 anyhow = "1.0.100"
