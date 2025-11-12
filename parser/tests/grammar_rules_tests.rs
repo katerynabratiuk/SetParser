@@ -1,5 +1,5 @@
-use set_parser::{SetLang, Rule, parse_program};
 use pest::Parser;
+use set_parser::{Rule, SetLang, parse_program};
 
 #[test]
 fn decl_and_print_stmt() {
