@@ -1,6 +1,6 @@
+use crate::ast::{Expr, Program, Stmt};
 use std::collections::{BTreeSet, HashMap};
 use thiserror::Error;
-use crate::ast::{Expr, Stmt, Program};
 
 pub type Set = BTreeSet<i32>;
 
@@ -25,7 +25,9 @@ impl Env {
             match s {
                 Stmt::Let { name, value } => {
                     let set = self.eval_expr(value)?;
-                    if name == "universe" { self.universe = Some(set.clone()); }
+                    if name == "universe" {
+                        self.universe = Some(set.clone());
+                    }
                     self.vars.insert(name.clone(), set);
                 }
                 Stmt::Print(e) => {
@@ -39,10 +41,14 @@ impl Env {
     pub fn eval_expr(&self, e: &Expr) -> Result<Set, EvalError> {
         use Expr::*;
         Ok(match e {
-            Ident(s) => self.vars.get(s).cloned().ok_or_else(|| EvalError::Undefined(s.clone()))?,
+            Ident(s) => self
+                .vars
+                .get(s)
+                .cloned()
+                .ok_or_else(|| EvalError::Undefined(s.clone()))?,
             Empty => Set::new(),
             SetLiteral(vs) => vs.iter().copied().collect(),
-            Range(a,b) => {
+            Range(a, b) => {
                 let (lo, hi) = if a <= b { (*a, *b) } else { (*b, *a) };
                 (lo..=hi).collect()
             }
@@ -50,20 +56,20 @@ impl Env {
                 let uni = self.universe.as_ref().ok_or(EvalError::NoUniverse)?;
                 uni.difference(&self.eval_expr(inner)?).copied().collect()
             }
-            Union(a,b) => {
-                let (a,b) = (self.eval_expr(a)?, self.eval_expr(b)?);
+            Union(a, b) => {
+                let (a, b) = (self.eval_expr(a)?, self.eval_expr(b)?);
                 a.union(&b).copied().collect()
             }
-            Intersect(a,b) => {
-                let (a,b) = (self.eval_expr(a)?, self.eval_expr(b)?);
+            Intersect(a, b) => {
+                let (a, b) = (self.eval_expr(a)?, self.eval_expr(b)?);
                 a.intersection(&b).copied().collect()
             }
-            Diff(a,b) => {
-                let (a,b) = (self.eval_expr(a)?, self.eval_expr(b)?);
+            Diff(a, b) => {
+                let (a, b) = (self.eval_expr(a)?, self.eval_expr(b)?);
                 a.difference(&b).copied().collect()
             }
-            SymDiff(a,b) => {
-                let (a,b) = (self.eval_expr(a)?, self.eval_expr(b)?);
+            SymDiff(a, b) => {
+                let (a, b) = (self.eval_expr(a)?, self.eval_expr(b)?);
                 a.symmetric_difference(&b).copied().collect()
             }
         })
@@ -85,5 +91,4 @@ impl Env {
         out.push('}');
         out
     }
-
 }
